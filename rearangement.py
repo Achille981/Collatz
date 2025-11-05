@@ -1,6 +1,6 @@
 from math import *
 
-def tableau (i:int, j:int) :
+def tab (i:int, j:int) :
     "Cette fonction retourne l'entier qui est à la position (i, j) du tableau de classement"
     if (isinstance(i,int)) and (isinstance(j,int)) and (i>=0) and (j>=0) :
         n = 1
@@ -26,20 +26,66 @@ def suivantImpaire (n : int):
         m = "ERREUR"
     return m
 
+def liste (n : int):
+    "Cette fonction dresse la liste de tous les termes impaires de la suite de Collatz de premier terme 'n'."
+    if (isinstance(n, int)):
+        l = [n]
+        while (1 not in l):
+            n = suivantImpaire(n)
+            l.append(n)
+    else:
+        l = "ERREUR"
+    return l
 
-# def tab (i:int, j:int) :
-#     if (isinstance(i,int)) and (isinstance(j,int)) and (i>=0) and (j>=0) :
-#         n = 5
-#         if (i % 2 == 1):
-#             n = 1
-#         resultat = ((2**i)*(6*j - n)-1)/3
-#     else :
-#         resultat = "ERREUR"
-#     return resultat
+def ordre (l):
+    "Cette fonction vérifie si la liste 'l' est ordonné d'une manière décroissante."
+    if (isinstance(l, list)) or (isinstance(l, tuple)):
+        for i in range (len(l)-1):
+            if (l[i]<l[i+1]):
+                return False
+        return True
+    else :
+        return None
+
+def ordreCroissant (l):
+    "Cette fonction vérifie si la liste 'l' est ordonné d'une manière croissante."
+    if (isinstance(l, list)) or (isinstance(l, tuple)):
+        for i in range (len(l)-1):
+            if (l[i]>l[i+1]):
+                return False
+        return True
+    else :
+        return None
+
+def siEntrant (n):
+    "Cette fonction vérifie si l'entier naturel 'n' est un entrant."
+    if (isinstance(n, int)):
+        if (ordre(liste(n))):
+            return True
+        return False
+    else:
+        return None
+
+def listeEntrants (debut = 1, fin = 100):
+    "Cette fonction dresse la liste des entrants comprisent entre 'début' et 'fin'."
+    if (isinstance(debut, int)) and (isinstance(fin, int)) and (debut >= 1) and (debut < fin):
+        i, l = debut, []
+        if (debut % 2 == 0):
+            i += 1
+        while i <= fin :
+            if (siEntrant(i)):
+                l.append(i)
+            i += 2
+    else :
+        l = "ERREUR"
+    return l
+        
+
 ##########  The pitt / Grey's anatomie / chicago made / the residants #########
-# for i in range (10):
-#     print()
-#     for j in range (10):
-#         print(tableau(i,j),end="  ")
+# 91 77 88 12
 
-print(suivantImpaire(tableau(0,0)))
+# print(ordre(liste(tab(0,0))))
+# print()
+# print(siEntrant(3))
+
+print(listeEntrants(fin=1000))
