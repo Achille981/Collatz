@@ -143,6 +143,44 @@ def listeSemiDivergeants(debut=1, fin=100):
         raise ValueError("Les bornes doivent être des entiers positifs avec début < fin")
 
 
+def convergents_intervalle(debut: int, fin: int):
+    """
+    Retourne la liste des entiers impairs convergents dans l'intervalle [debut, fin].
+    Un entier impair est convergent si sa liste impaire est strictement décroissante.
+    """
+    if isinstance(debut, int) and isinstance(fin, int) and debut >= 1 and debut < fin:
+        l = []
+        i = debut if debut % 2 == 1 else debut + 1  # on démarre par un impair
+        while i <= fin:
+            if siConvergeant(i):
+                l.append(i)
+            i += 2
+        return l
+    else:
+        raise ValueError("Les bornes doivent être des entiers positifs avec début < fin")
+
+
+def semi_divergeants_selon_taille(debut: int, fin: int, taille: int):
+    """
+    Retourne les entiers impairs semi-divergeants dans [debut, fin]
+    dont la longueur de leur liste impaire est égale à 'taille'.
+    """
+    if (isinstance(debut, int) and isinstance(fin, int)
+        and isinstance(taille, int)
+        and debut >= 1 and debut < fin and taille > 0):
+
+        l = []
+        i = debut if debut % 2 == 1 else debut + 1
+        while i <= fin:
+            if siSemiDivergeant(i):
+                if len(listeImpaire(i)) == taille:
+                    l.append(i)
+            i += 2
+        return l
+    else:
+        raise ValueError("Paramètres invalides : début, fin et taille doivent être des entiers positifs avec début < fin.")
+
+
 def portee(l):
     """
     Retourne le plus grand élément de la liste 'l'.
